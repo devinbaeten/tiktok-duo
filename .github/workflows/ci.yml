@@ -1,0 +1,25 @@
+name: Build and test
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - name: Run tests
+        run: ./tests/run-all.sh
+      - name: Build standalone extension
+        run: ./build.sh
+      - name: Create source and extension archives
+        run: python3 scripts/release.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: TikTok-Duo
+          path: dist/*
+          if-no-files-found: error

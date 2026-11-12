@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>PreferenceSpecifiers</key>
+	<array>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Advanced Experiments</string>
+			<key>FooterText</key>
+			<string>These experiments are separate from Layout Mode. Keep Default unless you want to override TikTok. Fully close and reopen TikTok after changing them.</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>FooterText</key>
+			<string>On removes the adaptive layout’s width threshold. Off disables that layout. Applies across folded and unfolded windows.</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Title</key>
+			<string>Adaptive Fold Layout</string>
+			<key>Key</key>
+			<string>TCLCover.mode.adaptive_layout</string>
+			<key>DefaultValue</key>
+			<integer>-1</integer>
+			<key>Titles</key>
+			<array>
+				<string>Default</string>
+				<string>Off</string>
+				<string>On</string>
+			</array>
+			<key>Values</key>
+			<array>
+				<integer>-1</integer>
+				<integer>0</integer>
+				<integer>1</integer>
+			</array>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>FooterText</key>
+			<string>Controls the foldable video crop experiment. It may crop video edges. Visible crop behavior is not yet verified.</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Title</key>
+			<string>Fold Video Crop Experiment</string>
+			<key>Key</key>
+			<string>TCLCover.mode.crop_layout</string>
+			<key>DefaultValue</key>
+			<integer>-1</integer>
+			<key>Titles</key>
+			<array>
+				<string>Default</string>
+				<string>Off</string>
+				<string>On</string>
+			</array>
+			<key>Values</key>
+			<array>
+				<integer>-1</integer>
+				<integer>0</integer>
+				<integer>1</integer>
+			</array>
+		</dict>
+	</array>
+</dict>
+</plist>

@@ -1,0 +1,13 @@
+/build/
+/dist/
+*.ipa
+*.ips
+*.crash
+*.dylib
+*.dSYM/
+*.mobileprovision
+*.p12
+*.pem
+*.key
+__pycache__/
+.DS_Store

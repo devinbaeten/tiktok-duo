@@ -1,0 +1,563 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>PreferenceSpecifiers</key>
+	<array>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Last TikTok Session</string>
+			<key>FooterText</key>
+			<string>These values describe the last recorded app session. Saved changes take effect only after fully closing and reopening TikTok. Getter calls show hook activity, not proof of a visible layout.</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+			<key>Title</key>
+			<string>Extension</string>
+			<key>Key</key>
+			<string>TCLCover.status.version</string>
+			<key>DefaultValue</key>
+			<string>1.0.0</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+			<key>Title</key>
+			<string>Active Layout</string>
+			<key>Key</key>
+			<string>TCLCover.status.layout</string>
+			<key>DefaultValue</key>
+			<string>Open TikTok to check</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+			<key>Title</key>
+			<string>Engine</string>
+			<key>Key</key>
+			<string>TCLCover.status.engine</string>
+			<key>DefaultValue</key>
+			<string>Open TikTok to check</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+			<key>Title</key>
+			<string>Binary</string>
+			<key>Key</key>
+			<string>TCLCover.status.binary</string>
+			<key>DefaultValue</key>
+			<string>Not checked</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+			<key>Title</key>
+			<string>Hooks installed</string>
+			<key>Key</key>
+			<string>TCLCover.status.hooks</string>
+			<key>DefaultValue</key>
+			<string>Not checked</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+			<key>Title</key>
+			<string>Recorded at</string>
+			<key>Key</key>
+			<string>TCLCover.status.updated</string>
+			<key>DefaultValue</key>
+			<string>Not recorded</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+			<key>Title</key>
+			<string>Recovery</string>
+			<key>Key</key>
+			<string>TCLCover.status.recovery</string>
+			<key>DefaultValue</key>
+			<string>Not recorded</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Adaptive Fold Layout</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+			<key>Title</key>
+			<string>Active override</string>
+			<key>Key</key>
+			<string>TCLCover.status.active.adaptive_layout</string>
+			<key>DefaultValue</key>
+			<string>Not recorded</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+			<key>Title</key>
+			<string>Objective-C getter calls</string>
+			<key>Key</key>
+			<string>TCLCover.status.calls.adaptive_layout</string>
+			<key>DefaultValue</key>
+			<string>Not recorded</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Floating Glass Tabs</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+			<key>Title</key>
+			<string>Active override</string>
+			<key>Key</key>
+			<string>TCLCover.status.active.glass_tabs</string>
+			<key>DefaultValue</key>
+			<string>Not recorded</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+			<key>Title</key>
+			<string>Objective-C getter calls</string>
+			<key>Key</key>
+			<string>TCLCover.status.calls.glass_tabs</string>
+			<key>DefaultValue</key>
+			<string>Not recorded</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Fold Video Crop Experiment</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+			<key>Title</key>
+			<string>Active override</string>
+			<key>Key</key>
+			<string>TCLCover.status.active.crop_layout</string>
+			<key>DefaultValue</key>
+			<string>Not recorded</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+			<key>Title</key>
+			<string>Objective-C getter calls</string>
+			<key>Key</key>
+			<string>TCLCover.status.calls.crop_layout</string>
+			<key>DefaultValue</key>
+			<string>Not recorded</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Right-side Tab Rail</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+			<key>Title</key>
+			<string>Active override</string>
+			<key>Key</key>
+			<string>TCLCover.status.active.vertical_tabs</string>
+			<key>DefaultValue</key>
+			<string>Not recorded</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+			<key>Title</key>
+			<string>Objective-C getter calls</string>
+			<key>Key</key>
+			<string>TCLCover.status.calls.vertical_tabs</string>
+			<key>DefaultValue</key>
+			<string>Not recorded</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Full-width Layout</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+			<key>Title</key>
+			<string>Active override</string>
+			<key>Key</key>
+			<string>TCLCover.status.active.full_width_chrome</string>
+			<key>DefaultValue</key>
+			<string>Not recorded</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+			<key>Title</key>
+			<string>Full-width route</string>
+			<key>Key</key>
+			<string>TCLCover.status.chrome.chromeRoute</string>
+			<key>DefaultValue</key>
+			<string>Not recorded</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+			<key>Title</key>
+			<string>Root screen</string>
+			<key>Key</key>
+			<string>TCLCover.status.chrome.chromeRoot</string>
+			<key>DefaultValue</key>
+			<string>Not recorded</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+			<key>Title</key>
+			<string>Runtime root class</string>
+			<key>Key</key>
+			<string>TCLCover.status.chrome.chromeRuntimeRoot</string>
+			<key>DefaultValue</key>
+			<string>Not recorded</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+			<key>Title</key>
+			<string>Root ownership</string>
+			<key>Key</key>
+			<string>TCLCover.status.chrome.chromeOwnership</string>
+			<key>DefaultValue</key>
+			<string>Not recorded</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+			<key>Title</key>
+			<string>Root class image</string>
+			<key>Key</key>
+			<string>TCLCover.status.chrome.chromeRootImage</string>
+			<key>DefaultValue</key>
+			<string>Not recorded</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+			<key>Title</key>
+			<string>System preference calls</string>
+			<key>Key</key>
+			<string>TCLCover.status.chrome.chromeBehaviorCalls</string>
+			<key>DefaultValue</key>
+			<string>Not recorded</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+			<key>Title</key>
+			<string>Child routing calls</string>
+			<key>Key</key>
+			<string>TCLCover.status.chrome.chromeChildCalls</string>
+			<key>DefaultValue</key>
+			<string>Not recorded</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+			<key>Title</key>
+			<string>Original bar preference</string>
+			<key>Key</key>
+			<string>TCLCover.status.chrome.chromeOriginalBehavior</string>
+			<key>DefaultValue</key>
+			<string>Not recorded</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+			<key>Title</key>
+			<string>Original routed child</string>
+			<key>Key</key>
+			<string>TCLCover.status.chrome.chromeOriginalChild</string>
+			<key>DefaultValue</key>
+			<string>Not recorded</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+			<key>Title</key>
+			<string>Window safe area</string>
+			<key>Key</key>
+			<string>TCLCover.status.chrome.chromeWindowInsets</string>
+			<key>DefaultValue</key>
+			<string>Not recorded</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+			<key>Title</key>
+			<string>System bar edge</string>
+			<key>Key</key>
+			<string>TCLCover.status.chrome.chromeTraitEdge</string>
+			<key>DefaultValue</key>
+			<string>Not recorded</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>FooterText</key>
+			<string>Preference counts record real iOS requests. Edge 0 means no vertical bar; 1 and 2 are side edges. The root override requests horizontal bars; its visible effect still needs an on-phone check.</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Effective Native Layout State</string>
+			<key>FooterText</key>
+			<string>Getter counts can stay at zero when TikTok uses native code. These snapshots show the cached adaptive thresholds and matched native glass-key reads. Glass eligibility preserves TikTok’s OS and device checks. Crop behavior remains unverified.</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+			<key>Title</key>
+			<string>Window size</string>
+			<key>Key</key>
+			<string>TCLCover.status.windowSize</string>
+			<key>DefaultValue</key>
+			<string>Open TikTok to check</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+			<key>Title</key>
+			<string>Adaptive cache</string>
+			<key>Key</key>
+			<string>TCLCover.status.native.adaptiveCache</string>
+			<key>DefaultValue</key>
+			<string>Open TikTok to check</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+			<key>Title</key>
+			<string>Effective thresholds</string>
+			<key>Key</key>
+			<string>TCLCover.status.native.thresholds</string>
+			<key>DefaultValue</key>
+			<string>Open TikTok to check</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+			<key>Title</key>
+			<string>Before cache repair</string>
+			<key>Key</key>
+			<string>TCLCover.status.native.thresholdsBefore</string>
+			<key>DefaultValue</key>
+			<string>Open TikTok to check</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+			<key>Title</key>
+			<string>Glass native reader</string>
+			<key>Key</key>
+			<string>TCLCover.status.native.glassReader</string>
+			<key>DefaultValue</key>
+			<string>Open TikTok to check</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+			<key>Title</key>
+			<string>Glass cache refresh</string>
+			<key>Key</key>
+			<string>TCLCover.status.native.glassReset</string>
+			<key>DefaultValue</key>
+			<string>Open TikTok to check</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+			<key>Title</key>
+			<string>Glass eligibility</string>
+			<key>Key</key>
+			<string>TCLCover.status.native.glassSupport</string>
+			<key>DefaultValue</key>
+			<string>Open TikTok to check</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+			<key>Title</key>
+			<string>Native global glass reads</string>
+			<key>Key</key>
+			<string>TCLCover.status.native.glassGlobalCalls</string>
+			<key>DefaultValue</key>
+			<string>Open TikTok to check</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+			<key>Title</key>
+			<string>Native fold glass reads</string>
+			<key>Key</key>
+			<string>TCLCover.status.native.glassFoldCalls</string>
+			<key>DefaultValue</key>
+			<string>Open TikTok to check</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Native Vertical Layout</string>
+			<key>FooterText</key>
+			<string>On enables TikTok’s vertical-tab experiment. UIKit still selects an eligible edge. Counts are actual native flag reads; this snapshot does not prove rail placement.</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+			<key>Title</key>
+			<string>Vertical native reader</string>
+			<key>Key</key>
+			<string>TCLCover.status.native.verticalReader</string>
+			<key>DefaultValue</key>
+			<string>Open TikTok to check</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+			<key>Title</key>
+			<string>Native vertical flag reads</string>
+			<key>Key</key>
+			<string>TCLCover.status.native.verticalNativeCalls</string>
+			<key>DefaultValue</key>
+			<string>0</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+			<key>Title</key>
+			<string>Last original vertical flag</string>
+			<key>Key</key>
+			<string>TCLCover.status.native.verticalOriginal</string>
+			<key>DefaultValue</key>
+			<string>Not observed</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Vertical Rail Bottom Spacing</string>
+			<key>FooterText</key>
+			<string>These are actual offset calls. The repair retains the live bottom safe-area inset, and applies only with Right-side Tab Rail On and actual vertical placement.</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+			<key>Title</key>
+			<string>Spacing repair</string>
+			<key>Key</key>
+			<string>TCLCover.status.bottom.state</string>
+			<key>DefaultValue</key>
+			<string>Not recorded</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+			<key>Title</key>
+			<string>Offset calls</string>
+			<key>Key</key>
+			<string>TCLCover.status.bottom.calls</string>
+			<key>DefaultValue</key>
+			<string>Not recorded</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+			<key>Title</key>
+			<string>Repair applications</string>
+			<key>Key</key>
+			<string>TCLCover.status.bottom.applied</string>
+			<key>DefaultValue</key>
+			<string>Not recorded</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+			<key>Title</key>
+			<string>Last tab placement</string>
+			<key>Key</key>
+			<string>TCLCover.status.bottom.placement</string>
+			<key>DefaultValue</key>
+			<string>Not recorded</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+			<key>Title</key>
+			<string>Original bottom reserve</string>
+			<key>Key</key>
+			<string>TCLCover.status.bottom.original</string>
+			<key>DefaultValue</key>
+			<string>Not recorded</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+			<key>Title</key>
+			<string>Effective bottom reserve</string>
+			<key>Key</key>
+			<string>TCLCover.status.bottom.effective</string>
+			<key>DefaultValue</key>
+			<string>Not recorded</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Feed Interface</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+			<key>Title</key>
+			<string>Shop Filter</string>
+			<key>Key</key>
+			<string>TCLCover.status.interface.shopState</string>
+			<key>DefaultValue</key>
+			<string>Open TikTok to check</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+			<key>Title</key>
+			<string>Shop List Reads</string>
+			<key>Key</key>
+			<string>TCLCover.status.interface.shopCalls</string>
+			<key>DefaultValue</key>
+			<string>Open TikTok to check</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+			<key>Title</key>
+			<string>Shop Entries Removed</string>
+			<key>Key</key>
+			<string>TCLCover.status.interface.shopRemoved</string>
+			<key>DefaultValue</key>
+			<string>Open TikTok to check</string>
+		</dict>
+	</array>
+</dict>
+</plist>

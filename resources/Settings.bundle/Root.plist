@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>PreferenceSpecifiers</key>
+	<array>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>TikTok Duo</string>
+			<key>FooterText</key>
+			<string>Layouts for folded, unfolded portrait, and unfolded half-screen use. Classic: standard bottom tabs. Native: floating glass tabs with a right-side rail where supported. Fullscreen: standard bottom tabs with full-width content. Tab placement adapts to the window. Fully close and reopen TikTok after changing modes.</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSMultiValueSpecifier</string>
+			<key>Title</key>
+			<string>Layout Mode</string>
+			<key>Key</key>
+			<string>TCLCover.layout</string>
+			<key>DefaultValue</key>
+			<integer>0</integer>
+			<key>Titles</key>
+			<array>
+				<string>Classic</string>
+				<string>Native</string>
+				<string>Fullscreen</string>
+			</array>
+			<key>Values</key>
+			<array>
+				<integer>0</integer>
+				<integer>1</integer>
+				<integer>2</integer>
+			</array>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Feed Interface</string>
+			<key>FooterText</key>
+			<string>Restart TikTok after changing Hide Shop Tab.</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSToggleSwitchSpecifier</string>
+			<key>Title</key>
+			<string>Hide Shop Tab</string>
+			<key>Key</key>
+			<string>TCLCover.hideShop</string>
+			<key>DefaultValue</key>
+			<false/>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>FooterText</key>
+			<string>Advanced experiments apply across display configurations.</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>Title</key>
+			<string>Advanced</string>
+			<key>File</key>
+			<string>Advanced</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
+			<string>Extension Status</string>
+			<key>FooterText</key>
+			<string>Status updates when TikTok opens or goes to the background. Reopen this page to refresh it. If a launch ends before its 10-second startup check, Layout Mode resets to Classic, optional interface features turn off, and advanced experiments reset to Default on the next launch.</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+			<key>Title</key>
+			<string>Active Layout</string>
+			<key>Key</key>
+			<string>TCLCover.status.layout</string>
+			<key>DefaultValue</key>
+			<string>Open TikTok to check</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSTitleValueSpecifier</string>
+			<key>Title</key>
+			<string>Engine</string>
+			<key>Key</key>
+			<string>TCLCover.status.engine</string>
+			<key>DefaultValue</key>
+			<string>Open TikTok to check</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>Title</key>
+			<string>Layout Diagnostics</string>
+			<key>File</key>
+			<string>Diagnostics</string>
+		</dict>
+	</array>
+</dict>
+</plist>
