@@ -20,7 +20,7 @@
 			<key>Key</key>
 			<string>TCLCover.status.version</string>
 			<key>DefaultValue</key>
-			<string>1.0.0</string>
+			<string>1.0.1</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -76,7 +76,7 @@
 			<key>Type</key>
 			<string>PSTitleValueSpecifier</string>
 			<key>Title</key>
-			<string>Recovery</string>
+			<string>Launch Preferences</string>
 			<key>Key</key>
 			<string>TCLCover.status.recovery</string>
 			<key>DefaultValue</key>
@@ -521,42 +521,6 @@
 			<string>TCLCover.status.bottom.effective</string>
 			<key>DefaultValue</key>
 			<string>Not recorded</string>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSGroupSpecifier</string>
-			<key>Title</key>
-			<string>Feed Interface</string>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSTitleValueSpecifier</string>
-			<key>Title</key>
-			<string>Shop Filter</string>
-			<key>Key</key>
-			<string>TCLCover.status.interface.shopState</string>
-			<key>DefaultValue</key>
-			<string>Open TikTok to check</string>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSTitleValueSpecifier</string>
-			<key>Title</key>
-			<string>Shop List Reads</string>
-			<key>Key</key>
-			<string>TCLCover.status.interface.shopCalls</string>
-			<key>DefaultValue</key>
-			<string>Open TikTok to check</string>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSTitleValueSpecifier</string>
-			<key>Title</key>
-			<string>Shop Entries Removed</string>
-			<key>Key</key>
-			<string>TCLCover.status.interface.shopRemoved</string>
-			<key>DefaultValue</key>
-			<string>Open TikTok to check</string>
 		</dict>
 	</array>
 </dict>

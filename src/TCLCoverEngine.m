@@ -7,7 +7,6 @@
 #import <UIKit/UIKit.h>
 #import "TCLCoverNative.h"
 #import "TCLCoverChrome.h"
-#import "TCLCoverShop.h"
 #import <mach-o/dyld.h>
 #import <mach-o/loader.h>
 #endif
@@ -79,7 +78,6 @@ void TCLCoverSetModeValue(NSString *key, NSInteger value) {
 }
 void TCLCoverResetDefaults(void) {
     if ([TCLPrefs objectForKey:TCLLayoutKey]) [TCLPrefs setInteger:0 forKey:TCLLayoutKey];
-    [TCLPrefs removeObjectForKey:@"TCLCover.hideShop"];
     for(NSInteger i=0;i<TCLExperimentCount;i++) [TCLPrefs removeObjectForKey:TCLPreference(i)];
     [TCLPrefs synchronize];
 }
@@ -95,6 +93,19 @@ NSArray<NSDictionary<NSString *, NSString *> *> *TCLCoverExperimentEntries(void)
 static void TCLLoadModes(void) {
     TCLActiveLayout = TCLCompatible ? TCLLayoutTitle(TCLLayoutSelection()) : @"Disabled — unsupported binary";
     for(NSInteger i=0;i<TCLExperimentCount;i++) atomic_store(&TCLActive[i], TCLCompatible ? (int)TCLCoverModeValue(TCLKeys[i]) : -1);
+}
+// An interrupted launch is not evidence of a crash. Preserve explicit choices,
+// including settings saved after an early exit, when retiring the old marker.
+static void TCLPrepareLaunchPreferences(void) {
+    [TCLPrefs synchronize];
+    TCLRecovery = @"Saved layout preserved";
+    if ([TCLPrefs objectForKey:@"TCLCover.pendingLaunch"]) {
+        [TCLPrefs removeObjectForKey:@"TCLCover.pendingLaunch"];
+        TCLRecovery = @"Incomplete-launch marker cleared — saved layout preserved";
+    }
+    if (TCLCompatible) TCLMigrateLayout();
+    TCLLoadModes();
+    [TCLPrefs synchronize];
 }
 static BOOL TCLEffective(NSInteger i, BOOL original) {
     atomic_fetch_add(&TCLHits[i],1); atomic_store(&TCLLastOriginal[i],original?1:0);
@@ -254,7 +265,7 @@ static void TCLInstallHooks(void) {
     TCLInstallBottomSpacingHook();
 }
 NSString *TCLCoverDiagnostics(void) {
-    NSMutableString *s=[NSMutableString stringWithFormat:@"TikTok Duo 1.0.0\nTarget: TikTok 47.7.0 (477034)\nBinary match: %@\nPreferences: iOS Settings app\nLaunch recovery: %@\n\nModes: -1 Default, 0 Off, 1 On. Saved changes apply next launch.\n",TCLCompatible?@"YES":@"NO — overrides disabled",TCLRecovery];
+    NSMutableString *s=[NSMutableString stringWithFormat:@"TikTok Duo 1.0.1\nTarget: TikTok 47.7.0 (477034)\nBinary match: %@\nPreferences: iOS Settings app\nLaunch preferences: %@\n\nModes: -1 Default, 0 Off, 1 On. Saved changes apply next launch.\n",TCLCompatible?@"YES":@"NO — overrides disabled",TCLRecovery];
     for(NSInteger i=0;i<TCLExperimentCount;i++) [s appendFormat:@"\n%@: saved=%ld, active=%d, calls=%llu, last original=%d\n",TCLKeys[i],(long)TCLCoverModeValue(TCLKeys[i]),atomic_load(&TCLActive[i]),(unsigned long long)atomic_load(&TCLHits[i]),atomic_load(&TCLLastOriginal[i])];
     [s appendFormat:@"\nBottom reservation: %@; calls=%llu; removed=%llu; placement=%ld; original=%.3f; effective=%.3f\n", TCLBottomStateDescription(), (unsigned long long)atomic_load(&TCLBottomCalls), (unsigned long long)atomic_load(&TCLBottomApplied), (long)atomic_load(&TCLBottomPlacement), atomic_load(&TCLBottomOriginal), atomic_load(&TCLBottomEffective)];
     [s appendString:@"\nOriginal -1 means not observed / dictionary-valued. Counts record actual method calls only; they do not prove a visible layout.\n\n"];
@@ -267,7 +278,7 @@ static void TCLSaveSettingsStatus(void) {
     [TCLPrefs setObject:TCLActiveLayout forKey:@"TCLCover.status.layout"];
     NSUInteger installed = 0;
     for (NSString *line in TCLHookStatus) if ([line hasSuffix:@": installed"]) installed++;
-    [TCLPrefs setObject:@"1.0.0" forKey:@"TCLCover.status.version"];
+    [TCLPrefs setObject:@"1.0.1" forKey:@"TCLCover.status.version"];
     [TCLPrefs setObject:!TCLCompatible ? @"Loaded — unsupported binary" :
         (installed == TCLExpectedHookCount ? @"Loaded — hooks installed" : @"Loaded — check diagnostics")
         forKey:@"TCLCover.status.engine"];
@@ -291,10 +302,6 @@ static void TCLSaveSettingsStatus(void) {
 #ifndef TCLC_TEST
     TCLCoverNativeRefresh();
     TCLCoverChromeRefresh();
-    TCLCoverShopRefresh();
-    [TCLCoverShopStatus() enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *value, __unused BOOL *stop) {
-        [TCLPrefs setObject:value forKey:[@"TCLCover.status.interface." stringByAppendingString:key]];
-    }];
     [TCLCoverChromeStatus() enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *value, __unused BOOL *stop) {
         [TCLPrefs setObject:value forKey:[@"TCLCover.status.chrome." stringByAppendingString:key]];
     }];
@@ -348,23 +355,14 @@ static BOOL TCLMatchesCore(void) {
 __attribute__((constructor)) static void TCLStart(void) {
     @autoreleasepool {
         TCLPrefs=NSUserDefaults.standardUserDefaults;TCLHookStatus=[NSMutableArray new];TCLCompatible=TCLMatchesCore();
-        if (TCLCompatible) TCLMigrateLayout();
         for(int i=0;i<TCLExperimentCount;i++)atomic_store(&TCLLastOriginal[i],-1);
-        if(TCLCompatible && [TCLPrefs boolForKey:@"TCLCover.pendingLaunch"]) {
-            TCLCoverResetDefaults();TCLRecovery=@"Layout reset to Classic, optional interface features off, and advanced experiments to Default after the previous launch ended before its 10-second startup check. An early force-quit can also trigger this.";
-            [TCLPrefs setBool:NO forKey:@"TCLCover.pendingLaunch"];
-        }
-        TCLLoadModes();TCLInstallHooks();
-        BOOL active=NO;for(int i=0;i<TCLExperimentCount;i++)if(atomic_load(&TCLActive[i])>=0)active=YES;
-        if(active){[TCLPrefs setBool:YES forKey:@"TCLCover.pendingLaunch"];[TCLPrefs synchronize];}
+        TCLPrepareLaunchPreferences();TCLInstallHooks();
         if(TCLCompatible) {
             TCLCoverNativeStart(TCLCoreHeader,TCLCoreSlide,atomic_load(&TCLActive[0]),atomic_load(&TCLActive[1]),atomic_load(&TCLActive[3]));
             TCLCoverChromeStart(atomic_load(&TCLActive[4]) == 1);
-            TCLCoverShopStart([TCLPrefs boolForKey:@"TCLCover.hideShop"]);
         }
         [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidBecomeActiveNotification object:nil queue:NSOperationQueue.mainQueue usingBlock:^(__unused NSNotification *n){
             TCLInstallHooks();TCLSaveSettingsStatus();
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW,10*NSEC_PER_SEC),dispatch_get_main_queue(),^{[TCLPrefs setBool:NO forKey:@"TCLCover.pendingLaunch"];TCLSaveSettingsStatus();});
         }];
         [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationWillResignActiveNotification object:nil queue:NSOperationQueue.mainQueue usingBlock:^(__unused NSNotification *n){ TCLSaveSettingsStatus(); }];
         dispatch_async(dispatch_get_main_queue(),^{TCLInstallHooks();TCLSaveSettingsStatus();});

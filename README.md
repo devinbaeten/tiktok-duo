@@ -14,8 +14,7 @@ close and reopen TikTok. For a separately named app, open that app's Settings en
 Tab placement adapts to the current window size and orientation. In Native mode,
 windows that do not use a vertical rail retain floating bottom tabs.
 
-Also includes **Hide Shop Tab**, which removes Shop from the top carousel,
-and advanced controls for adaptive fold layout and video cropping. Native mode
+Includes advanced controls for adaptive fold layout and video cropping. Native mode
 preserves the current bottom safe area for video metadata and progress.
 
 The extension uses Objective-C runtime hooks and narrowly validated native
@@ -78,22 +77,20 @@ The helper does not sign or install the app. Installing only the dylib without
 its `Settings.bundle` will not expose the preferences page. A jailbreak package
 or standalone Preferences.app bundle is not provided in this release.
 
-## Settings and recovery
+## Settings and startup
 
 The extension stores its settings under `TCLCover.*` preference keys in the
 app's standard user defaults. Each app installation maintains its own settings.
 
 Settings changes apply after a full app restart. Diagnostics show the last
 recorded session, not a live inspection. Counts and geometry are not proof of
-a visible layout. If a launch ends before its ten-second startup checkpoint,
-the next launch resets to Classic, disables Hide Shop, and returns advanced
-experiments to Default. An early force-quit can also trigger this recovery.
+a visible layout. Saved choices survive quick exits and restarts. To return to
+the standard layout, select Classic in iOS Settings and restart the app.
 
 ## Development and distribution
 
 `tests/run-all.sh` covers mode selection, unsupported identities, ABI guards,
-cache behavior, glass readers, system-bar routing, safe-area spacing, Shop
-filtering, and synthetic IPA packaging. Tests do not download or execute TikTok.
+cache behavior, glass readers, system-bar routing, safe-area spacing, startup preference preservation, and synthetic IPA packaging. Tests do not download or execute TikTok.
 GitHub Actions runs the same checks and builds the extension; it does not publish
 an IPA or install anything.
 

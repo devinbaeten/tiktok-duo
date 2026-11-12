@@ -1,6 +1,6 @@
 # Implementation
 
-- `TCLCoverEngine.m` owns mode mapping, preference snapshots, startup recovery,
+- `TCLCoverEngine.m` owns mode mapping, preference snapshots, startup preference preservation,
   Objective-C experiment getters, and the vertical-tab bottom-safe-area fix.
 - `TCLCoverNative.m` checks the exact MusicallyCore image and native byte
   signatures before replacing two validated reader slots. It applies adaptive
@@ -8,7 +8,6 @@
   OS/device eligibility result.
 - `TCLCoverChrome.m` requests horizontal system bars from the app's root
   controller for Fullscreen and restores inherited behavior when disabled.
-- `TCLCoverShop.m` filters the exact Shop model from the top-tab list.
 - `Settings.bundle` is read by iOS Settings; the app writes passive diagnostics
   using its standard user defaults.
 

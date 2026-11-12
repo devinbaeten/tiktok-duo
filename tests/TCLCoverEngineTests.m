@@ -204,17 +204,47 @@ static void TestLayoutPresets(TCLMemoryDefaults *prefs, BOOL incompatible) {
         }
     }
     [prefs setInteger:2 forKey:TCLLayoutKey];
-    [prefs setObject:@YES forKey:@"TCLCover.hideShop"];
     TCLCoverResetDefaults(); TCLLoadModes();
-    Check(![prefs.values[@"TCLCover.hideShop"] boolValue], @"Recovery retained optional interface features");
-    Check(TCLLayoutSelection() == 0, @"Startup recovery failed to restore Classic");
-    Check(TCLCoverModeValue(@"adaptive_layout") == -1 && TCLCoverModeValue(@"crop_layout") == -1, @"Recovery retained advanced overrides");
+    Check(TCLLayoutSelection() == 0, @"Explicit reset failed to restore Classic");
+    Check(TCLCoverModeValue(@"adaptive_layout") == -1 && TCLCoverModeValue(@"crop_layout") == -1, @"Explicit reset retained advanced overrides");
     for (id bad in @[@"Native", @99, @(-1), @1.5, NSNull.null]) {
         [prefs setObject:bad forKey:TCLLayoutKey]; TCLMigrateLayout();
         Check(TCLLayoutSelection() == 0, @"Invalid preset did not recover to Classic");
     }
     [prefs removeObjectForKey:TCLLayoutKey]; TCLMigrateLayout();
     Check(TCLLayoutSelection() == 0, @"Fresh installation did not select Classic");
+}
+static void TestLaunchPreferences(TCLMemoryDefaults *prefs, BOOL incompatible) {
+    // Use the production startup path, including migration and stale-marker handling.
+    for (NSInteger mode = 0; mode < 3; mode++) {
+        [prefs setInteger:mode forKey:TCLLayoutKey];
+        [prefs setInteger:1 forKey:@"TCLCover.mode.adaptive_layout"];
+        [prefs setObject:@YES forKey:@"TCLCover.pendingLaunch"];
+        TCLPrepareLaunchPreferences();
+        Check(TCLLayoutSelection() == mode, @"Incomplete launch overwrote saved layout");
+        Check(![prefs objectForKey:@"TCLCover.pendingLaunch"], @"Obsolete launch marker retained");
+        Check(TCLCoverModeValue(@"adaptive_layout") == 1, @"Startup overwrote advanced preference");
+        Check(atomic_load(&TCLActive[4]) == (incompatible ? -1 : (mode == 2)), @"Startup loaded wrong full-width mode");
+        // A second immediate launch must not require a timer to preserve the choice.
+        TCLPrepareLaunchPreferences();
+        Check(TCLLayoutSelection() == mode, @"Immediate restart changed layout");
+        Check(![prefs objectForKey:@"TCLCover.pendingLaunch"], @"Startup armed a destructive reset");
+    }
+    [prefs setInteger:1 forKey:TCLLayoutKey];
+    [prefs setObject:@YES forKey:@"TCLCover.pendingLaunch"];
+    // Settings writes Fullscreen after the previous session ended early.
+    [prefs setInteger:2 forKey:TCLLayoutKey];
+    TCLPrepareLaunchPreferences();
+    Check(TCLLayoutSelection() == 2, @"New Fullscreen choice lost to old launch marker");
+    Check(atomic_load(&TCLActive[1]) == (incompatible ? -1 : 0) &&
+          atomic_load(&TCLActive[3]) == (incompatible ? -1 : 0), @"Fullscreen retained glass or rail");
+    [prefs setObject:@"invalid" forKey:TCLLayoutKey];
+    TCLPrepareLaunchPreferences();
+    Check(incompatible ? [[prefs objectForKey:TCLLayoutKey] isEqual:@"invalid"] : TCLLayoutSelection() == 0,
+          @"Invalid mode fallback or unsupported preference preservation failed");
+    [prefs.values removeAllObjects];
+    TCLPrepareLaunchPreferences();
+    Check(TCLLayoutSelection() == (incompatible ? -1 : 0), @"Fresh launch default incorrect");
 }
 static void TestBottomReservation(TCLMemoryDefaults *prefs, BOOL incompatible) {
     id service = [NSClassFromString(@"AWEFeedModuleService") new];
@@ -333,7 +363,7 @@ int main(int argc, const char *argv[]) {
             Check([specifier[@"DefaultValue"] isEqual:@NO], @"Optional interface feature must default off");
             [switches addObject:specifier[@"Key"]];
         }
-        Check([switches isEqual:[NSSet setWithArray:@[@"TCLCover.hideShop"]]], @"Feed interface preferences missing or unexpected");
+        Check(switches.count == 0, @"Root contains non-layout switches");
         [prefs removeObjectForKey:TCLLayoutKey];
         NSDictionary *advanced = [NSDictionary dictionaryWithContentsOfFile:@"resources/Settings.bundle/Advanced.plist"];
         controls = 0;
@@ -352,7 +382,7 @@ int main(int argc, const char *argv[]) {
         Check(controls == 2, @"Advanced page must retain two independent experiments");
         TCLCoverResetDefaults();
         TCLSaveSettingsStatus();
-        Check([prefs.values[@"TCLCover.status.version"] isEqual:@"1.0.0"], @"Settings engine load status missing");
+        Check([prefs.values[@"TCLCover.status.version"] isEqual:@"1.0.1"], @"Settings engine load status missing");
         Check([prefs.values[@"TCLCover.status.hooks"] isEqual:incompatible ? @"0 of 9" : (wrongABI ? @"7 of 9" : (wrongBottomABI ? @"8 of 9" : @"9 of 9"))], @"Settings hook count incorrect");
         Check(TotalCalls() == 0, @"Status gathering proactively evaluated a gate");
         NSArray *boolReceivers = BoolReceivers();
@@ -456,6 +486,7 @@ int main(int argc, const char *argv[]) {
         }
         TestBottomReservation(prefs, incompatible);
         TestLayoutPresets(prefs, incompatible);
+        TestLaunchPreferences(prefs, incompatible);
         fprintf(stdout, "%s: %s (%lu failures)\n", argc > 1 ? argv[1] : "normal", failures ? "FAIL" : "PASS", (unsigned long)failures);
     }
     return failures ? 1 : 0;

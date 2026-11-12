@@ -37,24 +37,6 @@
 		<dict>
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
-			<key>Title</key>
-			<string>Feed Interface</string>
-			<key>FooterText</key>
-			<string>Restart TikTok after changing Hide Shop Tab.</string>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
-			<key>Title</key>
-			<string>Hide Shop Tab</string>
-			<key>Key</key>
-			<string>TCLCover.hideShop</string>
-			<key>DefaultValue</key>
-			<false/>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSGroupSpecifier</string>
 			<key>FooterText</key>
 			<string>Advanced experiments apply across display configurations.</string>
 		</dict>
@@ -72,7 +54,7 @@
 			<key>Title</key>
 			<string>Extension Status</string>
 			<key>FooterText</key>
-			<string>Status updates when TikTok opens or goes to the background. Reopen this page to refresh it. If a launch ends before its 10-second startup check, Layout Mode resets to Classic, optional interface features turn off, and advanced experiments reset to Default on the next launch.</string>
+			<string>Status updates when TikTok opens or goes to the background. Reopen this page to refresh it. Saved layout choices survive quick exits and restarts. To return to the standard layout, select Classic and restart TikTok.</string>
 		</dict>
 		<dict>
 			<key>Type</key>
