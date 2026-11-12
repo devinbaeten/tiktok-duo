@@ -5,11 +5,11 @@ unfolded portrait, and unfolded half-screen windows.
 Choose a layout in **iOS Settings → Apps → TikTok → Layout Mode**, then fully
 close and reopen TikTok. For a separately named app, open that app's Settings entry.
 
-| Mode | Tabs | Content area |
-| --- | --- | --- |
-| Classic | Standard bottom tabs | System status area retained |
-| Native | Floating glass tabs, with a right-side rail where supported | System status area retained |
-| Fullscreen | Standard bottom tabs | Full available width with horizontal system bars |
+| Mode | Tabs | Content area | Screenshot |
+| --- | --- | --- | --- |
+| Classic | Standard bottom tabs | System status area retained | [<img src="docs/screenshots/classic.jpg" alt="Classic mode with standard bottom tabs and a right-side system status area" width="320">](docs/screenshots/classic.jpg) |
+| Native | Floating glass tabs, with a right-side rail where supported | System status area retained | [<img src="docs/screenshots/native.jpg" alt="Native mode with floating glass tabs in the right-side rail" width="320">](docs/screenshots/native.jpg) |
+| Fullscreen | Standard bottom tabs | Full available width with horizontal system bars | [<img src="docs/screenshots/fullscreen.jpg" alt="Fullscreen mode with standard bottom tabs and system status indicators at the top" width="320">](docs/screenshots/fullscreen.jpg) |
 
 Tab placement adapts to the current window size and orientation. In Native mode,
 windows that do not use a vertical rail retain floating bottom tabs.

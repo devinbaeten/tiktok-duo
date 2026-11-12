@@ -10,6 +10,7 @@ import zipfile
 ROOT = Path(__file__).resolve().parents[1]
 VERSION = '1.0.1'
 NAME = f'TikTok-Duo-{VERSION}'
+SCREENSHOTS = tuple(ROOT / f'docs/screenshots/{mode}.jpg' for mode in ('classic', 'native', 'fullscreen'))
 
 
 def public_files():
@@ -28,7 +29,10 @@ def public_files():
             raise ValueError(f'Private path or device ID: {path.relative_to(ROOT)}')
         if re.search(r'-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----|gh[pousr]_[A-Za-z0-9]{30,}|github_pat_[A-Za-z0-9_]{30,}|AKIA[0-9A-Z]{16}', text):
             raise ValueError(f'Credential pattern: {path.relative_to(ROOT)}')
-    return sorted(files)
+    for path in SCREENSHOTS:
+        if path.is_symlink() or not path.is_file() or not path.read_bytes().startswith(b'\xff\xd8'):
+            raise ValueError('Missing or invalid mode screenshot')
+    return sorted(files + list(SCREENSHOTS))
 
 
 def archive(path, items):
@@ -59,6 +63,7 @@ def main():
     items = [(library, 'TikTokDuo.dylib')]
     items += [(p, p.relative_to(ROOT/'resources').as_posix()) for p in (ROOT/'resources/Settings.bundle').glob('*.plist')]
     items += [(ROOT / name, name) for name in ('README.md', 'LICENSE', 'CHANGELOG.md')]
+    items += [(p, p.relative_to(ROOT).as_posix()) for p in SCREENSHOTS]
     archive(extension, items)
     hashes = {p.name: hashlib.sha256(p.read_bytes()).hexdigest() for p in (source, extension)}
     (dest/'SHA256SUMS').write_text(''.join(f'{digest}  {name}\n' for name, digest in hashes.items()))
