@@ -36,6 +36,28 @@ Local build and fixture tests pass; **on-device validation is pending**.
 Layout behavior must be checked in each display configuration. The advanced
 crop experiment's visible behavior is unverified.
 
+## Download and install
+
+Download **TikTok-Duo-1.0.1-TikTok-47.7.0.ipa** from the
+[latest release](../../releases/latest) for a prepatched, decrypted TikTok 47.7.0
+with TikTok Duo and its iOS Settings preferences already included. No Mac or
+build tools are needed to prepare this IPA.
+
+The IPA is **not signed for your device**. Import it into your IPA signing and
+installation tool, sign it with your own account or certificate, and install it.
+Available installation methods depend on your device and signing setup. The IPA
+uses TikTok's standard bundle ID, so your signing tool may target an existing
+TikTok installation; use a separate app identifier if you want a second copy.
+
+After installation, open **iOS Settings → Apps → TikTok → Layout Mode**, choose
+Classic, Native, or Fullscreen, then fully close and reopen TikTok. Use the
+installed app's name if your signing tool renamed it. The preferences bundle
+must remain inside the app when signing; no additional dylib injection is needed.
+
+The release also includes an **extension ZIP** with `TikTokDuo.dylib` and
+`Settings.bundle`, a **source ZIP**, and `SHA256SUMS` for download verification.
+These layout controls do not change TikTok's sign-in or network behavior.
+
 ## Build
 
 Requires macOS, full Xcode with an iPhoneOS SDK selected by `xcode-select`, and
@@ -52,8 +74,8 @@ validation; the entire app must be signed for your device before installation.
 ## Package for your own device
 
 Supply your own clean, decrypted TikTok IPA matching the compatibility entry.
-No TikTok IPA, vendor framework, third-party tweak, signing certificate, or
-provisioning profile is distributed here.
+The source repository contains no app binaries, signing certificates, or
+provisioning profiles. A prepatched IPA is available separately as a release asset.
 
 Run from the repository root:
 
@@ -96,9 +118,10 @@ an IPA or install anything.
 
 `python3 scripts/release.py` creates separate **source** and **extension** ZIPs
 in `dist/`. The extension ZIP contains the compiled dylib, Settings resources,
-README and license. Share these ZIPs or this source repository—not a patched
-TikTok IPA. The release helper scans the source allowlist for accidental private
-paths, device identifiers, and credential patterns.
+README, screenshots, and license. The prepatched IPA is prepared separately with
+`scripts/package.py` and attached as a release asset. The release helper scans
+the source allowlist for accidental private paths, device identifiers, and
+credential patterns.
 
 See [ARCHITECTURE.md](ARCHITECTURE.md) for implementation details and
 [CHANGELOG.md](CHANGELOG.md) for release details.
